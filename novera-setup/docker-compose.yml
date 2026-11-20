@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17-alpine        # keep this in line with the Postgres version on Aiven
+    container_name: novera-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-novera}
+      POSTGRES_USER: ${POSTGRES_USER:-novera}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-novera}
+    ports:
+      - "5432:5432"
+    volumes:
+      - novera-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-novera} -d ${POSTGRES_DB:-novera}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  novera-pgdata:

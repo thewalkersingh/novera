@@ -1,0 +1,16 @@
+# Set these as environment variables on Render.
+# Aiven URL looks like: jdbc:postgresql://<host>:<port>/<db>?sslmode=require
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 5      # keep small for Aiven connection limits
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    root: INFO
+    com.novera: INFO
