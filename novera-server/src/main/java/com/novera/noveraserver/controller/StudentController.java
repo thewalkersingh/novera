@@ -26,14 +26,14 @@ public class StudentController {
 		return service.create(request);
 	}
 	
-	@PutMapping("/{id}")
-	public StudentResponse update(@PathVariable Long id, @Valid @RequestBody StudentRequest request) {
-		return service.update(id, request);
-	}
-	
 	@DeleteMapping("/{id}")
 	public void deactivate(@PathVariable Long id) {
 		service.deactivate(id);
+	}
+	
+	@PutMapping("/{id}")
+	public StudentResponse update(@PathVariable Long id, @Valid @RequestBody StudentRequest request) {
+		return service.update(id, request);
 	}
 	
 }

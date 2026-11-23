@@ -20,6 +20,7 @@ target/
 *.ipr
 .idea/dataSources*.xml
 dataSources*.xml
+.env
 
 ### NetBeans ###
 /nbproject/private/

@@ -21,13 +21,16 @@ public class StudentServiceImpl implements StudentService {
 		this.repository = repository;
 	}
 	
+	@Override
+	@Transactional(readOnly = true)
 	public StudentResponse getById(Long id) {
-		log.info("Getting student with id " + id);
+		log.info("Getting student with id {}", id);
 		return repository.findById(id)
 							  .map(StudentMapper::toResponse)
 							  .orElseThrow(() -> new ResourceNotFoundException("Student", id));
 	}
 	
+	@Override
 	@Transactional
 	public StudentResponse create(StudentRequest request) {
 		log.info("Creating student");
@@ -35,16 +38,22 @@ public class StudentServiceImpl implements StudentService {
 		return StudentMapper.toResponse(saved);
 	}
 	
+	@Override
 	@Transactional
 	public StudentResponse update(Long id, StudentRequest request) {
+		log.info("Updating student with id {}", id);
 		Student student = findOrThrow(id);
 		StudentMapper.apply(student, request);
 		return StudentMapper.toResponse(repository.saveAndFlush(student));
 	}
 	
-	/** Soft delete: the record is kept and marked INACTIVE. */
+	/**
+	 * Soft delete: the record is kept and marked INACTIVE.
+	 */
+	@Override
 	@Transactional
 	public void deactivate(Long id) {
+		log.info("Deactivating student with id {}", id);
 		Student student = findOrThrow(id);
 		student.setStatus(StudentStatus.INACTIVE);
 		repository.saveAndFlush(student);
