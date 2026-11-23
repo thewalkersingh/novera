@@ -16,3 +16,4 @@ dist/
 .DS_Store
 .idea/dataSources*.xml
 dataSources*.xml
+.env

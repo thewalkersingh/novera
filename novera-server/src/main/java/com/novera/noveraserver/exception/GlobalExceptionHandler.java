@@ -38,7 +38,8 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ApiError> handleUnreadable(HttpMessageNotReadableException ex, HttpServletRequest request) {
-		return build(HttpStatus.BAD_REQUEST, "Malformed or unreadable request body", request, Map.of());
+		return build(HttpStatus.BAD_REQUEST, "Malformed or unreadable request body '" + ex.getMessage() + "'", request,
+			Map.of());
 	}
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)

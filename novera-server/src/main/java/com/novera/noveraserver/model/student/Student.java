@@ -3,7 +3,7 @@ package com.novera.noveraserver.model.student;
 import com.novera.noveraserver.common.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "students")
 public class Student {
 	
@@ -35,7 +35,7 @@ public class Student {
 	@Column(nullable = false, length = 20)
 	private Gender gender;
 	
-	@Column(length = 100)
+	@Column(length = 100, unique = true, nullable = false)
 	private String email;
 	
 	@Column(length = 20)
